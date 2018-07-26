@@ -1,7 +1,7 @@
 h1{
     text-align: center;
     color: white;
-    transform: translate(-50%, -50%);
+    vertical-align: middle;
 }
 body{
     background-color: #000000;
