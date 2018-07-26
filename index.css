@@ -1,6 +1,7 @@
 h1{
-    text-align = center;
-    color: white
+    text-align: center;
+    color: white;
+    vertical-align: middle;
 }
 body{
     background-color: #000000;
