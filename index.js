@@ -1,46 +1,11 @@
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-var api_key = 'keydAzPGwjvMQfQvV';
+//function myFunction() {
+//    document.getElementById("myDropdown").classList.toggle("show");
+//}
 
-var listView = function(id, scenarios, representations, values, videos) {
-  return `<div class="col-sm-3">
-    <div class="card mb-4 box-shadow">
-      <div class="card-body">
-        <h2><a href="/?id=${id}">${name}</a></h2>
-        <div class="d-flex justify-content-between align-items-center">
-          <small class="text-muted">${rating}</small>
-        </div>
-      </div>
-    </div>
-  </div>`;
-}
 
-var getDataForList = function() {
-  // 1. Gets the data from the Airtable API
-  $.getJSON(`https://api.airtable.com/v0/appSrgke7E0ElZhMY/Locations?api_key=${api_key}&view=Rating`, function( data ) {
-    // console.log(data.records);
-    var html = [];
-    html.push(`<div class="row">`);
-    // 2. Iterates over every record and uses the list template
-    $.each( data.records, function( index, val ) {
-      // console.log(val.fields)
-      var id = val.id;
-      var fields = val.fields;
-      var scenarios = fields["scenarios"];
-      var representations = fields["representations"];
-      var videos = fields["videos"];
-      var itemHTML = listView(id, scenarios, pictureUrl, representations, videos);
-      html.push(itemHTML);
-    });
-    html.push(`</div>`);
-    // 3. Adds HTML for every item to our page
-    $(".list-view").append(html.join(""));
-  });
-
-// Close the dropdown menu if the user clicks outside of it
+/*
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
 
@@ -54,3 +19,36 @@ window.onclick = function(event) {
     }
   }
 }
+*/
+var airtable_list_url = 'https://api.airtable.com/v0/appxlFoELDnWhjbSQ/Scenarios?api_key=keydAzPGwjvMQfQvV'
+
+<a href="/?id=${id}">${name}</a>
+var detailpage = function (Scenarios, representations, Basic, ME, Force) {
+  return `<div class="detailview">
+    <div class="card mb-4 box-shadow">
+      <img class="card-img-top" src="${pictureUrl}">
+      <div class="card-body">
+        <h1>${name}</h1>
+        <p class="card-text">${neighborhood}</p>
+        <p class="card-text">${address}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">${rating}</small>
+          <small class="text-muted">${cost}</small>
+        </div>
+        ${website ? `<a href="${website}">${website}</a>`: ``}
+        <hr />
+        <a href="https://www.google.com/maps/search/${name} ${address}">
+          <img alt="Map of Location" src="https://api.mapbox.com/v4/mapbox.streets/${long},${lat},15/600x200.jpg?access_token=pk.eyJ1IjoibHVuYXJvamEiLCJhIjoiY2o4b2x1NXlmMDN6NDMzbWtpMzExM3ppdiJ9.M8L9FACjOXRrZWrkurNjTg" />
+        </a>
+      </div>
+    </div>
+  </div>`;
+}
+
+// }
+// $.getJSON("https://api.airtable.com/v0/appxlFoELDnWhjbSQ/Different%20Representations?api_key=keydAzPGwjvMQfQvV", function( data ) {
+//     console.log(data.records);
+//     var physics = [];
+//     //console.log(data)
+//     $(".list-view").append(html.join(""));
+//   });
