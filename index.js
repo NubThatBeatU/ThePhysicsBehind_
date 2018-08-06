@@ -1,8 +1,10 @@
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function dropdwnFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
 }
+
+// Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
 
@@ -17,35 +19,29 @@ window.onclick = function(event) {
   }
 }
 
+var listView = function(id, The_scenarios) {
+  return `<a href="index.html?id=${id}">${The_scenarios}</a>`;
+  //`<a href="#${Scenario_page_text}>${The_scenarios}</a>`;
+}
+
 var airtable_list_url = 'https://api.airtable.com/v0/appxlFoELDnWhjbSQ/Scenarios?api_key=keydAzPGwjvMQfQvV'
 
-// { <a href ="/?id=${id}">${name}</a>
-// var detailpage = function (Scenarios, representations, Basic, ME, Force) {
-//   return `<div class="detailview">
-//     <div class="card mb-4 box-shadow">
-//       <img class="card-img-top" src="${pictureUrl}">
-//       <div class="card-body">
-//         <h1>${name}</h1>
-//         <p class="card-text">${neighborhood}</p>
-//         <p class="card-text">${address}</p>
-//         <div class="d-flex justify-content-between align-items-center">
-//           <small class="text-muted">${rating}</small>
-//           <small class="text-muted">${cost}</small>
-//         </div>
-//         ${website ? `<a href="${website}">${website}</a>`: ``}
-//         <hr />
-//         <a href="https://www.google.com/maps/search/${name} ${address}">
-//           <img alt="Map of Location" src="https://api.mapbox.com/v4/mapbox.streets/${long},${lat},15/600x200.jpg?access_token=pk.eyJ1IjoibHVuYXJvamEiLCJhIjoiY2o4b2x1NXlmMDN6NDMzbWtpMzExM3ppdiJ9.M8L9FACjOXRrZWrkurNjTg" />
-//         </a>
-//       </div>
-//     </div>
-//   </div>`;
-// } }
+  // 1. Gets the data from the Airtable API
+  $.getJSON("https://api.airtable.com/v0/appxlFoELDnWhjbSQ/Scenarios?api_key=keydAzPGwjvMQfQvV", function( data ) {
+    // console.log(data.records);
+    var html = [];
+    // 2. Iterates over every record and uses the list template
+    $.each( data.records, function( index, val ) {
+      // console.log(val.fields)
+      var id = val.id
+      var fields = val.fields;
+      var The_scenarios = fields["The_scenarios"];
+      // var Scenario_page_text = fields["Scenario_page_text"];
+      var itemHTML = listView(id, The_scenarios);
+      html.push(itemHTML);
+      
+    });
+    // 3. Adds HTML for every item to our page
+    $(".listView").append(html.join(""));
+  });
 
-// }
-// $.getJSON("https://api.airtable.com/v0/appxlFoELDnWhjbSQ/Different%20Representations?api_key=keydAzPGwjvMQfQvV", function( data ) {
-//     console.log(data.records);
-//     var physics = [];
-//     //console.log(data)
-//     $(".list-view").append(html.join(""));
-//   });
